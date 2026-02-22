@@ -14,13 +14,21 @@
 
 #pragma once
 
+#ifdef _MSC_VER
+#define HPTT_DECL_VLA(type_, name_, len_) type_* name_ = reinterpret_cast<type_*>(_alloca(sizeof(type_)*len_));
+#else 
+#define HPTT_DECL_VLA(type_, name_, len_) type_ name_[len_];
+#endif
+
 #ifdef DEBUG
 #define HPTT_ERROR_INFO(str) fprintf(stdout, "[INFO] %s:%d : %s\n", __FILE__, __LINE__, str); exit(-1);
 #else
 #define HPTT_ERROR_INFO(str)
 #endif
 
-#if defined(__ICC) || defined(__INTEL_COMPILER)
+
+
+#if defined(__ICC) || defined(__INTEL_COMPILER) || defined(_MSC_VER)
 #define INLINE __forceinline
 #elif defined(__GNUC__) || defined(__GNUG__)
 #define INLINE __attribute__((always_inline)) inline

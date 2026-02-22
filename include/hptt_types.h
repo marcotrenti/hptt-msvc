@@ -9,6 +9,17 @@
 #define REGISTER_BITS 128 // ARM
 #endif
 
+#ifndef HPTT_C_FLT_COMPLEX
+#ifdef _MSC_VER
+  #include <complex.h>
+  #define HPTT_C_FLT_COMPLEX _Fcomplex
+  #define HPTT_C_DBL_COMPLEX _Dcomplex
+#else
+  #define HPTT_C_FLT_COMPLEX float _Complex
+  #define HPTT_C_DBL_COMPLEX double _Complex
+#endif
+#endif
+
 namespace hptt {
 
 /**

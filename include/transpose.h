@@ -9,7 +9,9 @@
 #ifdef _OPENMP
 #include <omp.h>
 #endif
-
+#ifdef _MSC_VER
+#define __restrict__ __restrict
+#endif
 #include "hptt_types.h"
 
 namespace hptt {
